@@ -19,6 +19,9 @@ Claude Code、とても便利ですよね。でも使い込んでいくと、こ
 
 ## cmux とは（30秒で）
 
+![cmux で4つのリポジトリを同時に開いている様子](/images/cmux-ecosystem-demo.png)
+*cmux 上で using-cmux / cmux-team / cfork / cmux-remote の4リポジトリを同時に管理*
+
 [cmux](https://cmux.dev) は AI エージェント向けに設計されたターミナルマルチプレクサです。tmux のようにペインを分割できるのに加えて、**CLI から操作を完全に自動化できる**のが最大の特徴です。
 
 ```bash
