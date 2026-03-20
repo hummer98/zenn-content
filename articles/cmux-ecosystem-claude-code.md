@@ -28,12 +28,14 @@ Claude Code、とても便利ですよね。でも使い込んでいくと、こ
 # ペイン分割
 cmux new-split right
 
-# 別ペインにコマンドを送信
+# 別ペインにコマンドを送信（surface:2 = surface番号で指定）
 cmux send --surface surface:2 "echo hello\n"
 
 # 別ペインの画面を読み取り
 cmux read-screen --surface surface:2
 ```
+
+各ペインには `surface:1`, `surface:2` のような**短縮 refs**（連番）が振られ、この番号だけで操作先を指定できます。UUID を覚える必要はありません。AI にとっても人間にとっても直感的に操作できる仕組みです。
 
 つまり、AI がターミナルを「見て」「操作できる」。これが全ての起点です。
 
@@ -94,34 +96,33 @@ cmux read-screen --workspace "$WS" --surface surface:1 --scrollback 500
 
 ポイントは、**全ての操作が CLI 経由なので、AI が完全に自動化できる**ということです。人間は横で見ているだけで OK です（もちろん介入もできます）。
 
-### send の改行ルール（ハマりポイント）
-
-cmux を使っていて一番ハマるのがこれです。
-
-```bash
-# 単一行コマンド → \n で Enter キーになる
-cmux send --surface surface:1 "echo hello\n"
-
-# 複数行テキスト → \n は使えない！ send-key return を使う
-cmux send --surface surface:1 "1行目"
-cmux send-key --surface surface:1 return
-cmux send --surface surface:1 "2行目"
-cmux send-key --surface surface:1 return
-```
-
-この区別を間違えると、改行が入らずに全部1行になってしまいます。SKILL.md では3箇所で強調しています（それくらい重要です）。
-
 ### インストール
 
 ```bash
-# Plugin（推奨）
-claude /plugin install hummer98/using-cmux
+# Plugin（推奨 — スキル + コマンド + フック全対応）
+/plugin marketplace add hummer98/using-cmux
+/plugin install using-cmux
 
 # Agent Skills（スキルのみ）
 npx skills add hummer98/using-cmux
 ```
 
 cmux セッション内で Claude Code を起動すると、環境変数 `CMUX_SOCKET_PATH` を検出して自動的にスキルがロードされます。設定不要です。
+
+### タブに surface 番号を自動表示
+
+Plugin としてインストールすると、**SessionStart フック**により Claude Code 起動時にタブタイトルが自動的に `[87] Claude Code` のような形式に変わります。
+
+これにより、`cmux tree` で表示される surface 番号とタブタイトルが一致し、「どのペインが surface:87 なのか」が一目でわかります。複数のサブエージェントを同時に走らせているとき、操作対象を間違えるリスクが大幅に減ります。
+
+```bash
+# タブタイトルから surface 番号がすぐわかる
+#   [87] Claude Code  ← surface:87
+#   [91] Claude Code  ← surface:91
+#   [108] Claude Code ← surface:108
+```
+
+> **Note**: この機能は Plugin インストール時のみ有効です。Agent Skills（`npx skills add`）ではフックが配布されないため、タブタイトルの自動変更は行われません。
 
 ---
 
