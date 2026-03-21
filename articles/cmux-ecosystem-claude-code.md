@@ -3,7 +3,7 @@ title: "cmuxで変わるClaude Codeのマルチプロジェクト開発体験"
 emoji: "🖥"
 type: "tech"
 topics: ["claudecode", "cmux", "ai", "terminal", "agent"]
-published: false
+published: true
 slug: "cmux-ecosystem-claude-code"
 ---
 
