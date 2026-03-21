@@ -19,7 +19,7 @@ Claude Code、とても便利ですよね。でも使い込んでいくと、こ
 
 ## cmux とは（30秒で）
 
-![cmux で4つのリポジトリを同時に開いている様子](/images/cmux-ecosystem-demo.png)
+![cmux で4つのリポジトリを同時に開いている様子](https://raw.githubusercontent.com/hummer98/zenn-content/master/images/cmux-ecosystem-demo.png)
 *cmux 上で using-cmux / cmux-team / cfork / cmux-remote の4リポジトリを同時に管理*
 
 [cmux](https://cmux.dev) は AI エージェント向けに設計されたターミナルマルチプレクサです。tmux のようにペインを分割できるのに加えて、**CLI から操作を完全に自動化できる**のが最大の特徴です。
@@ -85,7 +85,7 @@ using-cmux ではその構成を見直して、サブエージェント操作を
 
 ### サブエージェントの起動パターン
 
-![Claude Code がサブエージェントを起動・操作するデモ](/images/using-cmux-sub-agent-demo.gif)
+![Claude Code がサブエージェントを起動・操作するデモ](https://raw.githubusercontent.com/hummer98/zenn-content/master/images/using-cmux-sub-agent-demo.gif)
 *左ペインの Conductor が右ペインにサブエージェントを起動し、タスクを送信して結果を回収する流れ*
 
 ここが一番伝えたいところです。Claude Code が別ペインに Claude Code を立ち上げて、タスクを投げて、結果を回収する——という一連の流れがパターン化されています。
