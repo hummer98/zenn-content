@@ -179,6 +179,8 @@ Conductor ↔ Agent:  同上
 
 Manager は「issue 走査 → Conductor 起動 → pull 監視 → 結果回収 → issue クローズ」のサイクルを繰り返します。issue がなければ待機して再チェック。人間がやることは Master に指示を出すだけです。
 
+**この設計の重要なポイントは、下位の Agent が上位との協調動作を一切気にしなくてよいことです。** 上位が polling で見に来るので、Agent 側は「作業して、終わったら止まる」だけ。つまり、cmux-team の本質は特定のロール群ではなく、**既存の Agent やツールを自由に組み込んで、ワークフローをキック・監視する仕組み**です。
+
 ### git worktree による隔離
 
 各 Conductor は **git worktree** で独立したブランチを持ちます。main ブランチは常に無傷。タスク完了時に Manager がマージします。
@@ -191,21 +193,11 @@ git worktree add .worktrees/conductor-1 -b conductor-1/task
 # 完了後、Manager が main にマージして worktree を削除
 ```
 
-### エージェントロール（9種類）
+### 構造層とプリセットロール
 
-v2.0.0 では9つの専門ロールがテンプレートとして用意されています。Manager と Conductor は4層アーキテクチャの構造層ですが、それ以外の Agent ロール（Researcher、Implementer 等）はあくまでプリセットです。プロジェクトに合わせて自由に差し替えて構いません。
+cmux-team で固定なのは **Manager**（監視ループ）と **Conductor**（タスク実行・Agent 管理）の2つだけです。この2層がワークフローのキックと監視を担います。
 
-| ロール | 担当 | 備考 |
-|--------|------|------|
-| **Manager** | 監視ループ、Conductor 起動、結果回収 | 構造層（固定） |
-| **Conductor** | タスク分解、Agent 管理、worktree 内で自律実行 | 構造層（固定） |
-| **Researcher** | 技術調査・事実収集 | プリセット（差し替え可） |
-| **Architect** | 技術設計、Mermaid 図 | プリセット（差し替え可） |
-| **Reviewer** | 品質チェック | プリセット（差し替え可） |
-| **Implementer** | コーディング | プリセット（差し替え可） |
-| **Tester** | テスト作成・実行 | プリセット（差し替え可） |
-| **DocKeeper** | ドキュメント管理 | プリセット（差し替え可） |
-| **IssueManager** | 課題分類・要約 | プリセット（差し替え可） |
+その下で実際に動く Agent には、Researcher・Architect・Implementer・Tester など9種類のプロンプトテンプレートがプリセットとして同梱されていますが、**これらは出発点にすぎません**。自分のプロジェクトで使い慣れた Agent やツールがあれば、そのまま組み込めます。
 
 ### スラッシュコマンド
 
