@@ -193,19 +193,19 @@ git worktree add .worktrees/conductor-1 -b conductor-1/task
 
 ### エージェントロール（9種類）
 
-v2.0.0 では9つの専門ロールが定義されています。
+v2.0.0 では9つの専門ロールがテンプレートとして用意されています。Manager と Conductor は4層アーキテクチャの構造層ですが、それ以外の Agent ロール（Researcher、Implementer 等）はあくまでプリセットです。プロジェクトに合わせて自由に差し替えて構いません。
 
-| ロール | 担当 |
-|--------|------|
-| **Manager** | 監視ループ、Conductor 起動、結果回収 |
-| **Conductor** | タスク分解、Agent 管理、worktree 内で自律実行 |
-| **Researcher** | 技術調査・事実収集 |
-| **Architect** | 技術設計、Mermaid 図 |
-| **Reviewer** | 品質チェック |
-| **Implementer** | コーディング |
-| **Tester** | テスト作成・実行 |
-| **DocKeeper** | ドキュメント管理 |
-| **IssueManager** | 課題分類・要約 |
+| ロール | 担当 | 備考 |
+|--------|------|------|
+| **Manager** | 監視ループ、Conductor 起動、結果回収 | 構造層（固定） |
+| **Conductor** | タスク分解、Agent 管理、worktree 内で自律実行 | 構造層（固定） |
+| **Researcher** | 技術調査・事実収集 | プリセット（差し替え可） |
+| **Architect** | 技術設計、Mermaid 図 | プリセット（差し替え可） |
+| **Reviewer** | 品質チェック | プリセット（差し替え可） |
+| **Implementer** | コーディング | プリセット（差し替え可） |
+| **Tester** | テスト作成・実行 | プリセット（差し替え可） |
+| **DocKeeper** | ドキュメント管理 | プリセット（差し替え可） |
+| **IssueManager** | 課題分類・要約 | プリセット（差し替え可） |
 
 ### スラッシュコマンド
 
