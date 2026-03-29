@@ -23,6 +23,34 @@ slug: "cmux-team-multi-agent"
 cmux-team は実験的なプロジェクトです。設計判断も運用知見も試行錯誤の途中経過であり、プロダクション品質のフレームワークではありません。
 :::
 
+## クイックスタート
+
+```bash
+# インストール（Plugin も自動設定される）
+npm install -g @hummer98/cmux-team
+
+# cmux 上で Claude Code を起動した状態で
+/cmux-team:start
+```
+
+Daemon と 3 つの Conductor が立ち上がり、TUI ダッシュボードが表示されます。Master タブに切り替えて、自然言語でタスクを伝えるだけです。
+
+```
+You:    ログイン機能を React で作って
+Master: タスクを作成しました。
+        → Daemon がタスク検出（~10s）→ Conductor-1 に割り当て
+        → Conductor-1 が Agent を spawn して実装開始
+
+You:    E2E テストも追加して
+Master: タスクを作成しました。
+        → Conductor-2 に割り当て（並列実行）
+
+You:    進捗は？
+Master: Conductor-1: 実装中（Agent 2/3 完了）
+        Conductor-2: テスト作成中
+        Task #003 APIリファクタリング: キュー待ち
+```
+
 ## 旧アーキテクチャの問題
 
 旧 cmux-team は 4 層すべてが AI エージェントでした。
@@ -199,34 +227,6 @@ cmux-team は自分のターミナルで動きます。既存の開発環境、s
 GitHub Actions のような「ステップを定義して順番に実行する」方式は決定論的で信頼性が高いですが、**各ステップの内容を事前に定義する必要がある**のが AI エージェントとの相性が悪い点です。
 
 cmux-team は「ルーティングは決定論的、実行はセマンティック」という中間地点を狙っています。タスクの割り当てと完了検出は確実にコードが行い、タスクの中身は AI が自由に判断する。
-
-## クイックスタート
-
-```bash
-# インストール（Plugin も自動設定される）
-npm install -g @hummer98/cmux-team
-
-# cmux 上で Claude Code を起動した状態で
-/cmux-team:start
-```
-
-Daemon と 3 つの Conductor が立ち上がり、TUI ダッシュボードが表示されます。Master タブに切り替えて、自然言語でタスクを伝えるだけです。
-
-```
-You:    ログイン機能を React で作って
-Master: タスクを作成しました。
-        → Daemon がタスク検出（~10s）→ Conductor-1 に割り当て
-        → Conductor-1 が Agent を spawn して実装開始
-
-You:    E2E テストも追加して
-Master: タスクを作成しました。
-        → Conductor-2 に割り当て（並列実行）
-
-You:    進捗は？
-Master: Conductor-1: 実装中（Agent 2/3 完了）
-        Conductor-2: テスト作成中
-        Task #003 APIリファクタリング: キュー待ち
-```
 
 ## おわりに
 
