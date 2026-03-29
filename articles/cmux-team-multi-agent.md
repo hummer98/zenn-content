@@ -51,6 +51,8 @@ Master: Conductor-1: 実装中（Agent 2/3 完了）
         Task #003 APIリファクタリング: キュー待ち
 ```
 
+![cmux-team 動作画面](/images/cmux-team-screenshot.png)
+
 ## 旧アーキテクチャの問題
 
 旧 cmux-team は 4 層すべてが AI エージェントでした。
