@@ -109,7 +109,7 @@ cmux-team create-task --title "E2Eテストを追加" --priority medium
 状態遷移もシンプルです：
 
 ```
-draft → ready → in_progress → closed → archived
+draft → ready → assigned → closed → archived
 ```
 
 依存関係（`depends_on`）もサポートしており、先行タスクが完了するまで後続タスクは `ready` のままキューに留まります。
