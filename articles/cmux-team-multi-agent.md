@@ -3,7 +3,7 @@ title: "cmux-team v3: AIにAIを管理させるのをやめた話"
 emoji: "🏗"
 type: "tech"
 topics: ["claudecode", "cmux", "ai", "agent", "multiagent"]
-published: false
+published: true
 slug: "cmux-team-multi-agent"
 ---
 
@@ -34,22 +34,6 @@ npm install -g @hummer98/cmux-team
 ```
 
 Daemon と 3 つの Conductor が立ち上がり、TUI ダッシュボードが表示されます。Master タブに切り替えて、自然言語でタスクを伝えるだけです。
-
-```
-You:    ログイン機能を React で作って
-Master: タスクを作成しました。
-        → Daemon がタスク検出（~10s）→ Conductor-1 に割り当て
-        → Conductor-1 が Agent を spawn して実装開始
-
-You:    E2E テストも追加して
-Master: タスクを作成しました。
-        → Conductor-2 に割り当て（並列実行）
-
-You:    進捗は？
-Master: Conductor-1: 実装中（Agent 2/3 完了）
-        Conductor-2: テスト作成中
-        Task #003 APIリファクタリング: キュー待ち
-```
 
 ![cmux-team 動作画面](/images/cmux-team-screenshot.png)
 
