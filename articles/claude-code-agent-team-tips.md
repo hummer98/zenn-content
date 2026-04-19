@@ -1,5 +1,5 @@
 ---
-title: "Claude Code でエージェントチームを自作するときにハマった罠と解決策"
+title: "Claude Code で AI オーケストレーションを自作したい人向けの TIPS"
 emoji: "🔧"
 type: "tech"
 topics: ["claudecode", "multiagent", "proxy", "ai", "agent"]
