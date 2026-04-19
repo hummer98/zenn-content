@@ -609,29 +609,6 @@ setInterval(() => {
 
 `ps` や `kill -0` を shell out するより軽く、Node/Bun の try/catch で完結します。`SessionStart` hook で `$PPID` を親に通知しておけば PID を取得できます。
 
-### デーモンの自己再起動は exit code 42 で足りる
-
-systemd や pm2 を持ち出さなくても、CLI ラッパーで `execFileSync` をループさせて特定の exit code だけ再起動する方法で十分です。
-
-```js
-// bin/cmux-team.js
-let restarts = 0;
-while (restarts < MAX_RESTARTS) {
-  try {
-    execFileSync('node', ['daemon.js'], { stdio: 'inherit' });
-    break; // 正常終了
-  } catch (e) {
-    if (e.status === 42) {
-      restarts++;
-      continue; // 設定変更 → 再起動
-    }
-    throw e;
-  }
-}
-```
-
-プロセス側は設定変更を反映したいときに `process.exit(42)` するだけです。再起動回数に上限を設けておけば暴走も防げます。
-
 ## worktree と環境変数
 
 ### worktree で環境変数が消える問題
