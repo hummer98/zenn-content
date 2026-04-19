@@ -657,13 +657,36 @@ direnv が親ディレクトリを遡って本物の `.envrc` を読んでくれ
 const promptFile = await writeTemp(rolePrompt);
 execFile('claude', [
   '--session-id', sessionId,
-  '--model', 'claude-opus-4-5',
+  '--model', 'claude-opus-4-7',
   '--settings', settingsFile,
   '--append-system-prompt-file', promptFile,
 ]);
 ```
 
 `--settings` でhookを差し替えつつ `--append-system-prompt-file` でロール定義を差し替えると、1 バイナリで「Researcher 用 Claude」「Implementer 用 Claude」を使い分けられます。
+
+## プラグインを 1 セッションだけ無効化する
+
+ロール別エージェントで「このロールでは特定プラグインを使わせたくない」という要件が出たとき、**公式には 1 セッションだけプラグインを無効化する CLI フラグがありません**。`claude --help` や CLI reference を眺めても出てきません。
+
+実用解は **`--settings` に `enabledPlugins` の部分 JSON を直接注入する** 方法です。
+
+```bash
+claude --settings '{"enabledPlugins":{"using-cmux@hummer98-using-cmux":false}}'
+```
+
+Claude Code の settings 優先度は `Managed > CLI args > Local > Project > User` で、`--settings` は CLI args 層として User settings より強く、`enabledPlugins` は deep-merge されます。したがって**このセッションだけ `false`** で上書きでき、他セッションや恒久設定には一切影響しません。
+
+代替案がなぜ不十分かもメモしておきます。
+
+| 方法 | 結果 |
+|------|------|
+| `--plugin-dir <path>` | additive（追加）のみ。無効化に使えない |
+| `--setting-sources project` | User settings 丸ごと無視されるので他プラグインも全滅 |
+| `claude plugin disable <name>` | `settings.local.json` を恒久的に書き換えてしまう |
+| `--settings` で `enabledPlugins` 上書き | ✅ 1 セッションのみ・他無影響 |
+
+ロール別 Conductor で hook が競合した・tab タイトルを上書きされたくない・skill を特定ロールからだけ隠したい、といった要件はこのテクニックで解決できます。
 
 ## おわりに
 
