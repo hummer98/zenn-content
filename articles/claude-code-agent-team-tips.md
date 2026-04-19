@@ -78,6 +78,12 @@ function toEpochSec(raw: string | null): number | null {
 
 「次に使えるのはいつか」をユーザに見せるときはここで秒数に正規化してから差分を取ると、表示ロジックが綺麗になります。
 
+#### `CLAUDE_CODE_OAUTH_TOKEN` 運用でも `unified-*` ヘッダは取れる
+
+CI や daemon 常駐用に `CLAUDE_CODE_OAUTH_TOKEN` 環境変数で認証する運用は便利ですが、**この状態だと Claude Code の `/usage` スラッシュコマンドが動きません**（対話ログイン時のみ機能する仕様）。クォータを視覚的に確認する手段がなくなるので、普段 `/usage` に頼っていると詰まります。
+
+ただし **API レスポンスの `anthropic-ratelimit-unified-*` ヘッダは `CLAUDE_CODE_OAUTH_TOKEN` 経由でも通常通り返ってきます**。したがって自前プロキシさえ挟めば、OAuth token 認証の常駐環境でも 5h / 7d の utilization と reset を拾えます。cmux-team は `.envrc` で `CLAUDE_CODE_OAUTH_TOKEN` を仕込んだ Conductor 群でもこのヘッダからスロットル判定を行っています。
+
 ### セッションの素性をヘッダで識別する
 
 子セッションが複数ある環境では、どの子からの API コールかをプロキシ側で区別したくなります。
