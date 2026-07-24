@@ -203,3 +203,7 @@ Auto (Gemini 3)                      ← でも Gemini 3 が使える
 「新しいモデル出た！試してみよう」→「Gemini 2.5 しか出てこない」→「Workspace の Gemini Advanced とは別製品だった」→「ライセンスなしでも、リリースチャネルを REST API で叩けば動いた」という旅でした。
 
 Gemini 3.1 Pro が正式 GA になり、`gcloud` コマンド一発で設定できるようになる頃には、この記事が不要になることを願っています。
+
+---
+
+AIエージェント開発の技術顧問・企業研修を承っています → [hummer98.dev](https://hummer98.dev)

@@ -313,3 +313,7 @@ AI エージェントコーディングは「AI に指示を出して結果を�
 - [cmux-remote](https://github.com/hummer98/cmux-remote) — iPhone リモートビューア
 - [cfork](https://github.com/hummer98/cfork) — 会話フォーク
 - [plugin-packager](https://github.com/hummer98/plugin-packager) — スキル配布の自動化
+
+---
+
+AIエージェント開発の技術顧問・企業研修を承っています → [hummer98.dev](https://hummer98.dev)

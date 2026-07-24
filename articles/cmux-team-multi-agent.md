@@ -230,3 +230,7 @@ cmux-team v3 で得た最大の学びは、**AI にやらせるべきことと�
 - [cmux](https://cmux.dev)
 - [using-cmux](https://github.com/hummer98/using-cmux) -- Claude Code 向け cmux 操作スキル
 - [cmux エコシステム記事](https://zenn.dev/hummer/articles/cmux-ecosystem-claude-code)
+
+---
+
+AIエージェント開発の技術顧問・企業研修を承っています → [hummer98.dev](https://hummer98.dev)
