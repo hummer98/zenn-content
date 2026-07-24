@@ -3,7 +3,7 @@ title: "会社設立の登記実務をClaude Codeにやらせた記録と、そ�
 emoji: "🏢"
 type: "tech"
 topics: ["claudecode", "ai", "起業", "法人設立", "plugin"]
-published: false
+published: true
 slug: "tosbec-incorporation-with-claude-code"
 ---
 
