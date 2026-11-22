@@ -3,7 +3,7 @@ title: "AIオーケストレーションに足りないのは、思いやりだ�
 emoji: "🐈"
 type: "idea"
 topics: ["claudecode", "aiagent", "ai", "ux", "kitty"]
-published: false
+published: true
 slug: "claude-kitty-omoiyari"
 ---
 
